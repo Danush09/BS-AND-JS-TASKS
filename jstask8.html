@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Form</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #f4e4b1, #df87b7);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        form {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.5); /* Transparent white background */
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        label {
+            display: inline-block;
+            width: 120px; /* Fixed width for labels */
+            text-align: left;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        select,
+        textarea {
+            width: calc(100% - 120px); /* Adjust the width of input fields accordingly */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: transparent; /* Transparent background */
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .error {
+            color: red;
+        }
+
+        #submit-btn {
+            display: block;
+            width: 100%;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #declaration {
+            text-align: right;
+        }
+
+        h1 {
+            color: blue;
+            text-align: center;
+        }
+
+        /* Style for the right-aligned link */
+        #ethnus-link {
+            text-align: right;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Registration Form</h1>
+    <form id="registrationForm" onsubmit="return validateForm()">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName"><span class="error">POOR</span><br>
+        
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName"><span class="error">POOR</span><br>
+        
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email"><span class="error">POOR</span><br>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"><span class="error">POOR</span><br>
+        
+        <label for="reenterPassword">Re-enter Password:</label>
+        <input type="password" id="reenterPassword" name="reenterPassword"><span class="error">POOR</span><br>
+        
+        <label for="gender">Gender:</label>
+        <input type="radio" id="male" name="gender" value="male">Male
+        <input type="radio" id="female" name="gender" value="female">Female<br>
+        
+        <label for="age">Age:</label>
+        <input type="text" id="age" name="age"><span class="error">POOR</span><br>
+        
+        <label for="phone">Phone No:</label>
+        <input type="text" id="phone" name="phone"><span class="error">POOR</span><br>
+        
+        <label for="address">Address:</label>
+        <textarea name="address" id="address" cols="30" rows="10"></textarea><span class="error">POOR</span><br>
+        
+        <label for="state">State:</label>
+        <input type="text" id="state" name="state"><span class="error">POOR</span><br>
+        
+        <label for="country">Country:</label>
+        <select id="country" name="country">
+            <option value="Select your country">Select your country</option>
+            <option value="USA">USA</option>
+            <option value="Canada">Canada</option>
+            <option value="UK">UK</option>
+        </select><span class="error">POOR</span><br>
+        
+        <label for="languages">Languages Known:</label>
+        <input type="checkbox" id="english" name="languages" value="English">English
+        <input type="checkbox" id="kannada" name="languages" value="Kannada">Kannada
+        <input type="checkbox" id="hindi" name="languages" value="Hindi">Hindi
+        <input type="checkbox" id="telugu" name="languages" value="Telugu">Telugu<br>
+        
+        <input type="checkbox" id="declarationCheckbox" name="declaration" required>
+        <label for="declarationCheckbox">Hereby I declare all the given details are true</label><span class="error">POOR</span><br>
+        
+        <div id="ethnus-link">
+            Log in to <a href="www.ethnus.com">Ethnus</a> website.
+        </div>
+        
+        <br><br><br><br>
+        
+        <input type="submit" id="submit-btn" value="Register">
+    </form>
+
+    <script>
+        function validateForm() {
+            // Reset error messages
+            document.querySelectorAll(".error").forEach(function (el) {
+                el.textContent = "POOR";
+            });
+    
+            // Get form input values
+            var firstName = document.getElementById("firstName").value.trim();
+            var lastName = document.getElementById("lastName").value.trim();
+            var email = document.getElementById("email").value.trim();
+            var password = document.getElementById("password").value.trim();
+            var reenterPassword = document.getElementById("reenterPassword").value.trim();
+            var age = document.getElementById("age").value.trim();
+            var phone = document.getElementById("phone").value.trim();
+            var address = document.getElementById("address").value.trim();
+            var state = document.getElementById("state").value.trim();
+            var languages = document.querySelectorAll('input[name="languages"]:checked');
+    
+            var isValid = true;
+    
+            // Validation for First Name
+            if (firstName === "") {
+                document.getElementById("firstNameError").textContent = "First Name is required.";
+                isValid = false;
+            }
+    
+            // Validation for Last Name
+            if (lastName === "") {
+                document.getElementById("lastNameError").textContent = "Last Name is required.";
+                isValid = false;
+            }
+    
+            // Validation for Email
+            if (email === "") {
+                document.getElementById("emailError").textContent = "Email is required.";
+                isValid = false;
+            } else if (!isValidEmail(email)) {
+                document.getElementById("emailError").textContent = "Invalid email format.";
+                isValid = false;
+            }
+    
+            // Validation for Password
+            if (password === "") {
+                document.getElementById("passwordError").textContent = "Password is required.";
+                isValid = false;
+            }
+    
+            // Validation for Reentered Password
+            if (reenterPassword === "") {
+                document.getElementById("reenterPasswordError").textContent = "Please reenter your password.";
+                isValid = false;
+            } else if (reenterPassword !== password) {
+                document.getElementById("reenterPasswordError").textContent = "Passwords do not match.";
+                isValid = false;
+            }
+    
+            // Validation for Age
+            if (age === "") {
+                document.getElementById("ageError").textContent = "Age is required.";
+                isValid = false;
+            } else if (isNaN(age) || age < 18) {
+                document.getElementById("ageError").textContent = "Age must be a number and at least 18.";
+                isValid = false;
+            }
+    
+            // Validation for Phone Number
+            if (phone === "") {
+                document.getElementById("phoneError").textContent = "Phone Number is required.";
+                isValid = false;
+            } else if (!isValidPhoneNumber(phone)) {
+                document.getElementById("phoneError").textContent = "Invalid phone number format.";
+                isValid = false;
+            }
+    
+            // Validation for Address
+            if (address === "") {
+                document.getElementById("addressError").textContent = "Address is required.";
+                isValid = false;
+            }
+    
+            // Validation for State
+            if (state === "") {
+                document.getElementById("stateError").textContent = "State is required.";
+                isValid = false;
+            }
+    
+            // Validation for Languages Known (At least one language must be selected)
+            if (languages.length === 0) {
+                document.getElementById("languagesError").textContent = "Please select at least one language.";
+                isValid = false;
+            }
+    
+            // Validation for Declaration Checkbox
+            var declarationCheckbox = document.getElementById("declarationCheckbox");
+            if (!declarationCheckbox.checked) {
+                document.getElementById("declarationError").textContent = "You must agree to the declaration.";
+                isValid = false;
+            }
+    
+            if (isValid) {
+                alert("Registration successful!");
+            } else {
+                alert("Poor! Please correct the errors.");
+            }
+    
+            return isValid;
+        }
+    
+        // Helper function to validate email format
+        function isValidEmail(email) {
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+    
+        // Helper function to validate phone number format
+        function isValidPhoneNumber(phone) {
+            var phoneRegex = /^\d{10}$/; // Assuming 10-digit phone numbers
+            return phoneRegex.test(phone);
+        }
+    </script>
+</body>
+</html>
